@@ -1,0 +1,22 @@
+{% extends "main/base.html" %}
+
+{% block title %}
+    View
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+
+        {% for td in user.todolist.all %}
+        <p><a href="/{{td.id}}">{{td.name}}</a> </p>
+        {% endfor %}
+
+        {% if user.todolist.all %}
+        {% else %}
+            <h6>You have no to-do lists. Click <a href="/create">here</a> to create one</h6>
+        {% endif %}
+    {% else %}
+        <h6>Please create an account <a href="/registration/register">here</a> or <a href="/login">login</a> to use this functionality</h6>
+    {% endif %}
+
+{% endblock %}

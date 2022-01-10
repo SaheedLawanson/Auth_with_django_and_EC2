@@ -1,0 +1,53 @@
+{% extends "main/base.html" %}
+
+{% block title %}items{% endblock %}
+
+{% block content %}
+    <h1>{{name.name}}</h1>
+
+    {% if todos %}
+
+        <form action="#" method=post>
+            {% csrf_token %}
+
+            {% for item in todos %}
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        {% if item.complete == True %}
+                            <input type=checkbox value=clicked name="c{{item.id}}" checked>.
+                        {% else %}
+                            <input type=checkbox value=clicked name="c{{item.id}}">.
+                        {% endif %}    
+                    </div>
+                </div>
+                <input type=text value="{{item.text}}" class="form-control">
+            </div>
+            {% endfor %}
+            
+                <button type="submit" name=save value=save class="btn btn-success">Save</button><br><br>
+        
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button type="submit" name=newItem value=newItem class="btn btn-success">Create Task</button>
+                </div>
+                <input type=text name=new>
+            </div>
+        </form>
+
+        {% else %}
+            <br>
+            <h5>You have no tasks in this to-do list</h5>
+            <form action=# method="post">
+                {% csrf_token %}
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <button type="submit" name=newItem value=newItem class="btn btn-success">Create Task</button>
+                    </div>
+                    <input type=text name=new>
+                </div>
+            </form>
+        {% endif %}
+
+{% endblock %}

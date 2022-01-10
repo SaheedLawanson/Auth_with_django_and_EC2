@@ -1,0 +1,22 @@
+{% extends "main/base.html" %}
+
+{% block title %}create a list{% endblock %}
+
+{% block content %}
+    <h3>Create a to do list</h3><br><br>
+
+    {% if user.is_authenticated %}
+        <form action="/create/" method="post" class="form-group">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button type="submit" name="save" class="btn btn-success">Create New</button>
+                </div>
+                {{form.name}}
+            </div>
+        </form>
+    {% else %}
+        <h5>Please <a href="/login">login</a> or <a href="/registration/register">register</a> to start creating to-do lists</h5>
+    {% endif %}
+
+{% endblock %}
